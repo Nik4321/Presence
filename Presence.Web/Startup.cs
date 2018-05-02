@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Presence.Data;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence
 {
@@ -27,6 +28,11 @@ namespace Presence
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Presence API" });
             });
 
             services.AddMvc();
@@ -49,6 +55,13 @@ namespace Presence
             }
 
             app.UseStaticFiles();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Presence API");
+            });
 
             app.UseMvc(routes =>
             {
