@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Presence.Data;
+using Presence.Data.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence
@@ -29,6 +31,10 @@ namespace Presence
             {
                 options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
             });
+
+            services.AddIdentity<User, UserRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddSwaggerGen(c =>
             {
