@@ -13,7 +13,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Presence
+namespace Presence.Web
 {
     public class Startup
     {
