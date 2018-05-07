@@ -8,7 +8,7 @@ using Presence.Data;
 using Presence.Data.Extensions;
 using Presence.Data.Models;
 
-namespace Presence.Web
+namespace Presence.Api
 {
     public class Program
     {

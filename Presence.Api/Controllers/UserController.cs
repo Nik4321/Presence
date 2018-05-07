@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presence.Data.Models;
-using Presence.Web.Models.User;
+using Presence.Api.Models.User;
 
-namespace Presence.Web.Controllers
+namespace Presence.Api.Controllers
 {
     [Route("api/User")]
     public class UserController : BaseController

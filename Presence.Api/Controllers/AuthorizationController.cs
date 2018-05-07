@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Presence.Data.Models;
-using Presence.Web.Models.Authorize;
+using Presence.Api.Models.Authorize;
 
-namespace Presence.Web.Controllers
+namespace Presence.Api.Controllers
 {
     public class AuthorizationController : Controller
     {

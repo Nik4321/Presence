@@ -12,7 +12,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Presence.Web
+namespace Presence.Api
 {
     public class Startup
     {

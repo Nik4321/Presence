@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Web", "Presence.Web\Presence.Web.csproj", "{FF276AB4-C594-45CC-B7CF-349F6CA24EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Api", "Presence.Api\Presence.Api.csproj", "{FF276AB4-C594-45CC-B7CF-349F6CA24EC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Data", "Presence.Data\Presence.Data.csproj", "{2CFE33FA-A1B0-483F-8C2C-9188910D73AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Infrastructure", "Presence.Infrastructure\Presence.Infrastructure.csproj", "{36CAB787-B3CB-4675-8523-CF526B8C9F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presence.Client", "Presence.Client\Presence.Client.csproj", "{0914959B-B200-4C1C-914C-C78DB4636070}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Client", "Presence.Client\Presence.Client.csproj", "{0914959B-B200-4C1C-914C-C78DB4636070}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

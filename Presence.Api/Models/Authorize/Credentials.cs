@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presence.Web.Models.Authorize
+namespace Presence.Api.Models.Authorize
 {
     public class Credentials
     {
