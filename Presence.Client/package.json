@@ -46,6 +46,8 @@
 		"tslint": "~5.9.1"
 	},
 	"-vs-binding": {
-		"ProjectOpened": [ "start" ]
+		"ProjectOpened": [
+			"start"
+		]
 	}
 }
