@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 const routes: Routes = [
 	// Have a default home component which to be served as a landing page
@@ -13,8 +14,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  declarations: [LoginComponent, RegisterComponent]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
+	declarations: [
+		AppComponent,
+		NavbarComponent,
+		LoginComponent,
+		RegisterComponent
+	]
 })
 export class AppRoutingModule { }
