@@ -16,11 +16,11 @@ namespace Presence.Api
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -30,7 +30,7 @@ namespace Presence.Api
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
             });
 
             services.AddIdentity<User, UserRole>()
@@ -51,7 +51,8 @@ namespace Presence.Api
             });
 
             services
-                .AddAuthentication(options => {
+                .AddAuthentication(options => 
+                {
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -65,9 +66,9 @@ namespace Presence.Api
                         ValidateIssuer = true,
                         ValidateIssuerSigningKey = true,
                         ValidateLifetime = true,
-                        ValidIssuer = Configuration.GetSection("JwtSettings")["Authority"],
-                        ValidAudience = Configuration.GetSection("JwtSettings")["Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JwtSettings")["Secret"])),
+                        ValidIssuer = this.configuration.GetSection("JwtSettings")["Authority"],
+                        ValidAudience = this.configuration.GetSection("JwtSettings")["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration.GetSection("JwtSettings")["Secret"])),
                         ClockSkew = TimeSpan.Zero
                     };
                 });

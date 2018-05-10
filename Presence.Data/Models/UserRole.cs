@@ -8,6 +8,5 @@ namespace Presence.Data.Models
 {
     public class UserRole : IdentityRole<int>
     {
-        
     }
 }

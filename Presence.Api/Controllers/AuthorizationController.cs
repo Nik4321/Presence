@@ -29,9 +29,9 @@ namespace Presence.Api.Controllers
         [HttpPost("api/User/Token")]
         public async Task<IActionResult> Token(Credentials model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             var user = await this.userManager.FindByEmailAsync(model.Email);
@@ -59,7 +59,8 @@ namespace Presence.Api.Controllers
         {
             var roles = await this.userManager.GetRolesAsync(user);
 
-            var claims = new[] {
+            var claims = new[] 
+            {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -68,12 +69,12 @@ namespace Presence.Api.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, "Token");
             claimsIdentity.AddClaims(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtSettings")["Secret"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration.GetSection("JwtSettings")["Secret"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                configuration.GetSection("JwtSettings")["Authority"],
-                configuration.GetSection("JwtSettings")["Audience"],
+                this.configuration.GetSection("JwtSettings")["Authority"],
+                this.configuration.GetSection("JwtSettings")["Audience"],
                 claimsIdentity.Claims,
                 expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: creds);

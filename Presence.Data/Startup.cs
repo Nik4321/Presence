@@ -13,7 +13,7 @@ namespace Presence.Data
 {
     public class Startup
     {
-        public IConfiguration configuration { get; }
+        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {

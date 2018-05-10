@@ -10,16 +10,21 @@ namespace Presence.Data.Extensions
 {
     public static class DataSeedExtensions
     {
-        private static string[] roles = new[]
+        private static readonly string[] Roles = new[]
         {
             RoleNamesConstants.Admin,
             RoleNamesConstants.Teacher,
             RoleNamesConstants.Student
         };
 
+        public static async Task SeedDatabase(this ApplicationDbContext db, RoleManager<UserRole> roleManager)
+        {
+            await db.SeedRoles(roleManager);
+        }
+
         private static async Task SeedRoles(this ApplicationDbContext db, RoleManager<UserRole> roleManager)
         {
-            foreach (var role in roles)
+            foreach (var role in Roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
                 {
@@ -27,11 +32,6 @@ namespace Presence.Data.Extensions
                     await roleManager.CreateAsync(newRole);
                 }
             }
-        }
-
-        public static async Task SeedDatabase(this ApplicationDbContext db, RoleManager<UserRole> roleManager)
-        {
-            await db.SeedRoles(roleManager);
         }
     }
 }
