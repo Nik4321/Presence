@@ -17,7 +17,7 @@ namespace Presence.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if (!this.ModelState.IsValid)
             {

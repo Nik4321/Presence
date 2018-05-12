@@ -27,7 +27,7 @@ namespace Presence.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("api/User/Token")]
-        public async Task<IActionResult> Token(Credentials model)
+        public async Task<IActionResult> Token([FromBody]Credentials model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -48,7 +48,8 @@ namespace Presence.Api.Controllers
             var result = new
             {
                 userEmail = user.Email,
-                token = new JwtSecurityTokenHandler().WriteToken(token),
+                type = "bearer",
+                access_token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
             };
 
