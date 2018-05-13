@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Presence.Data\Presence.Data.csproj" />
     <ProjectReference Include="..\Presence.Infrastructure\Presence.Infrastructure.csproj" />
+    <ProjectReference Include="..\Presence.Services\Presence.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />

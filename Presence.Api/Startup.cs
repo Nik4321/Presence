@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Presence.Data;
 using Presence.Data.Models;
+using Presence.Services;
+using Presence.Services.Implementations;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence.Api
@@ -27,12 +29,15 @@ namespace Presence.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(options =>
             {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -79,6 +84,8 @@ namespace Presence.Api
                     };
                 });
 
+            services.AddScoped<IUserService, UserService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Presence API" });
@@ -96,7 +103,7 @@ namespace Presence.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors("MyPolicy");
+            app.UseCors("CorsPolicy");
 
             if (env.IsDevelopment())
             {
