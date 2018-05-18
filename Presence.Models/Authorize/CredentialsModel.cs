@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presence.Api.Models.Authorize
+namespace Presence.Models.Authorize
 {
-    public class Credentials
+    public class CredentialsModel
     {
         [Required]
         public string Email { get; set; }

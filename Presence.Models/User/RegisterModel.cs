@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presence.Api.Models.User
+namespace Presence.Models.User
 {
     public class RegisterModel
     {

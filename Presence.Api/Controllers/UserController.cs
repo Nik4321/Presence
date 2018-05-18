@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presence.Data.Models;
-using Presence.Api.Models.User;
 using Presence.Services;
+using Presence.Models.User;
 
 namespace Presence.Api.Controllers
 {

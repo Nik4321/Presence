@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Presence.Data.Models;
-using Presence.Api.Models.Authorize;
+using Presence.Models.Authorize;
 
 namespace Presence.Api.Controllers
 {
@@ -27,7 +27,7 @@ namespace Presence.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("api/User/Token")]
-        public async Task<IActionResult> Token([FromBody]Credentials model)
+        public async Task<IActionResult> Token([FromBody]CredentialsModel model)
         {
             if (!this.ModelState.IsValid)
             {

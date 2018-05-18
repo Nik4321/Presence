@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Presence.Data\Presence.Data.csproj" />
+    <ProjectReference Include="..\Presence.Models\Presence.Models.csproj" />
   </ItemGroup>
 
 </Project>
