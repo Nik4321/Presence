@@ -13,7 +13,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Presence.Services;
 using Presence.Services.Implementations;
-using Presence.Services.Options;
+using Presence.Infrastructure.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence.Api

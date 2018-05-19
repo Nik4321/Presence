@@ -12,7 +12,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Presence.Infrastructure.Exceptions;
 using Presence.Models.Authorize;
-using Presence.Services.Options;
+using Presence.Infrastructure.Options;
 
 namespace Presence.Services.Implementations
 {

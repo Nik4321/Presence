@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Presence.Services.Options
+namespace Presence.Infrastructure.Options
 {
     public class JwtSettings
     {
