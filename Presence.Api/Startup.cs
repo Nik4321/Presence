@@ -13,6 +13,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Presence.Services;
 using Presence.Services.Implementations;
+using Presence.Services.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence.Api
@@ -83,6 +84,8 @@ namespace Presence.Api
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            services.Configure<JwtSettings>(this.configuration.GetSection("JwtSettings"));
 
             services.AddScoped<IUserService, UserService>();
 
