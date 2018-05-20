@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -12,6 +11,7 @@ using Presence.Data;
 using Presence.Data.Models;
 using Presence.Infrastructure.Exceptions;
 using Presence.Models.Authorize;
+using Presence.Models.User;
 using Presence.Infrastructure.Options;
 
 namespace Presence.Services.Implementations
@@ -35,6 +35,19 @@ namespace Presence.Services.Implementations
         public IQueryable<User> AllUsers()
         {
             return this.db.Users;
+        }
+
+        public async Task<IdentityResult> RegisterUserAsync(RegisterModel model)
+        {
+            var user = new User
+            {
+                UserName = model.Email,
+                Email = model.Email
+            };
+
+            var result = await this.userManager.CreateAsync(user, model.Password);
+
+            return result;
         }
 
         public async Task<TokenResponse> AuthenticateUserAsync(CredentialsModel model)

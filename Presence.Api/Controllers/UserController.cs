@@ -10,12 +10,10 @@ namespace Presence.Api.Controllers
     [Route("api/User/[action]")]
     public class UserController : BaseController
     {
-        private readonly UserManager<User> userManager;
         private readonly IUserService userService;
 
-        public UserController(UserManager<User> userManager, IUserService userService)
+        public UserController(IUserService userService)
         {
-            this.userManager = userManager;
             this.userService = userService;
         }
 
@@ -27,13 +25,7 @@ namespace Presence.Api.Controllers
                 return this.BadRequest(this.ModelState);
             }
 
-            var user = new User
-            {
-                UserName = model.Email,
-                Email = model.Email
-            };
-
-            var result = await this.userManager.CreateAsync(user, model.Password);
+            var result = await this.userService.RegisterUserAsync(model);
 
             if (result.Succeeded)
             {
@@ -41,6 +33,7 @@ namespace Presence.Api.Controllers
             }
 
             this.AddErrors(result);
+
             return this.BadRequest(this.ModelState);
         }
 
