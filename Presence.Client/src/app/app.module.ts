@@ -6,19 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegisterComponent } from './components/user/register/register.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Services
 import { HttpService } from './services/http.service';
 
+// Modules
+import { UserModule } from './components/user/user.module';
+
 @NgModule({
 	declarations: [
 		AppComponent,
-		NavbarComponent,
-		LoginComponent,
-		RegisterComponent
+		NavbarComponent
 	],
 	imports: [
 		BrowserModule,
