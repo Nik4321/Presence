@@ -16,7 +16,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Services", "Presen
 		{2CFE33FA-A1B0-483F-8C2C-9188910D73AE} = {2CFE33FA-A1B0-483F-8C2C-9188910D73AE}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presence.Models", "Presence.Models\Presence.Models.csproj", "{6DC31C8A-68A7-408C-B9A4-695629F08155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presence.Models", "Presence.Models\Presence.Models.csproj", "{6DC31C8A-68A7-408C-B9A4-695629F08155}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DBA8CA22-D03C-44FC-B3E2-F05A591A9508}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
