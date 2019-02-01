@@ -18,12 +18,12 @@ namespace Presence.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext db;
+        private readonly PresenceDbContext db;
         private readonly UserManager<User> userManager;
         private readonly JwtSettings jwtSettings;
 
         public UserService(
-            ApplicationDbContext db,
+            PresenceDbContext db,
             UserManager<User> userManager,
             IOptions<JwtSettings> jwtSettings)
         {

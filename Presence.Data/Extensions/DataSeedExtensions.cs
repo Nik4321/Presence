@@ -17,12 +17,12 @@ namespace Presence.Data.Extensions
             RoleNamesConstants.Student
         };
 
-        public static async Task SeedDatabase(this ApplicationDbContext db, RoleManager<UserRole> roleManager)
+        public static async Task SeedDatabase(this PresenceDbContext db, RoleManager<UserRole> roleManager)
         {
             await db.SeedRoles(roleManager);
         }
 
-        private static async Task SeedRoles(this ApplicationDbContext db, RoleManager<UserRole> roleManager)
+        private static async Task SeedRoles(this PresenceDbContext db, RoleManager<UserRole> roleManager)
         {
             foreach (var role in Roles)
             {

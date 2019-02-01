@@ -40,13 +40,13 @@ namespace Presence.Api
                     .AllowCredentials());
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<PresenceDbContext>(options =>
             {
                 options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
             });
 
             services.AddIdentity<User, UserRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<PresenceDbContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>

@@ -10,7 +10,7 @@ using System;
 
 namespace Presence.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(PresenceDbContext))]
     [Migration("20180504194214_InitialMigration")]
     partial class InitialMigration
     {

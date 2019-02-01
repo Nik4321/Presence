@@ -19,7 +19,7 @@ namespace Presence.Api
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var db = services.GetService<ApplicationDbContext>();
+                var db = services.GetService<PresenceDbContext>();
                 var roleManager = services.GetService<RoleManager<UserRole>>();
                 try
                 {

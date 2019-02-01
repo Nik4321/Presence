@@ -5,9 +5,9 @@ using Presence.Data.Models;
 
 namespace Presence.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
+    public class PresenceDbContext : IdentityDbContext<User, UserRole, int>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public PresenceDbContext(DbContextOptions<PresenceDbContext> options) : base(options)
         {
         }
 
