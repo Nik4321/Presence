@@ -14,7 +14,7 @@ using Presence.Models.Authorize;
 using Presence.Models.User;
 using Presence.Infrastructure.Options;
 
-namespace Presence.Services.Implementations
+namespace Presence.Services
 {
     public class UserService : IUserService
     {
