@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using Presence.Data;
 using Presence.Data.Models;
 using Presence.Infrastructure.Options;
 using Presence.Services;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
 
@@ -15,7 +17,31 @@ namespace Presence.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static void AddPresenceApiServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.RegisterCorsService();
+            services.RegisterDbContext(configuration);
+            services.RegisterOptions(configuration);
+            services.RegisterIdentityUser(configuration);
+            services.RegisterServices();
+            services.RegisterSwagger();
+            services.RegisterMvcServices();
+        }
+
+        private static void RegisterCorsService(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+        }
+
+        private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<PresenceDbContext>(options =>
             {
@@ -23,17 +49,12 @@ namespace Presence.Api.Extensions
             });
         }
 
-        public static void RegisterOptions(this IServiceCollection services, IConfiguration configuration)
+        private static void RegisterOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
         }
 
-        public static void RegisterServices(this IServiceCollection services)
-        {
-            services.AddScoped<IUserService, UserService>();
-        }
-
-        public static void RegisterIdentityUser(this IServiceCollection services, IConfiguration configuration)
+        private static void RegisterIdentityUser(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, UserRole>()
                 .AddEntityFrameworkStores<PresenceDbContext>()
@@ -73,6 +94,30 @@ namespace Presence.Api.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtSettings")["Secret"])),
                         ClockSkew = TimeSpan.Zero
                     };
+                });
+        }
+
+        private static void RegisterServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
+        }
+
+        private static void RegisterSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Presence API" });
+            });
+        }
+
+        private static void RegisterMvcServices(this IServiceCollection services)
+        {
+            services
+                .AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver =
+                        new CamelCasePropertyNamesContractResolver();
                 });
         }
     }

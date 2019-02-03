@@ -2,10 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
 using Presence.Api.Extensions;
-using Presence.Infrastructure.Options;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Presence.Api
 {
@@ -21,33 +18,7 @@ namespace Presence.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(
-                    "CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-            });
-
-            services.RegisterDbContext(this.configuration);
-            services.RegisterIdentityUser(this.configuration);
-            services.RegisterOptions(this.configuration);
-            services.RegisterServices();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Presence API" });
-            });
-
-            services
-                .AddMvc()
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver =
-                        new CamelCasePropertyNamesContractResolver();
-                });
+            services.AddPresenceApiServices(this.configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
