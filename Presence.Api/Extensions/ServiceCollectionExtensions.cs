@@ -19,16 +19,16 @@ namespace Presence.Api.Extensions
     {
         public static void AddPresenceApiServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.RegisterCorsService();
-            services.RegisterDbContext(configuration);
-            services.RegisterOptions(configuration);
-            services.RegisterIdentityUser(configuration);
-            services.RegisterServices();
-            services.RegisterSwagger();
-            services.RegisterMvcServices();
+            RegisterCorsService(services);
+            RegisterDbContext(services, configuration);
+            RegisterOptions(services, configuration);
+            RegisterIdentityUser(services, configuration);
+            RegisterServices(services);
+            RegisterSwagger(services);
+            RegisterMvcServices(services);
         }
 
-        private static void RegisterCorsService(this IServiceCollection services)
+        private static void RegisterCorsService(IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -41,7 +41,7 @@ namespace Presence.Api.Extensions
             });
         }
 
-        private static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
+        private static void RegisterDbContext(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<PresenceDbContext>(options =>
             {
@@ -49,12 +49,12 @@ namespace Presence.Api.Extensions
             });
         }
 
-        private static void RegisterOptions(this IServiceCollection services, IConfiguration configuration)
+        private static void RegisterOptions(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
         }
 
-        private static void RegisterIdentityUser(this IServiceCollection services, IConfiguration configuration)
+        private static void RegisterIdentityUser(IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, UserRole>()
                 .AddEntityFrameworkStores<PresenceDbContext>()
@@ -89,28 +89,28 @@ namespace Presence.Api.Extensions
                         ValidateIssuer = true,
                         ValidateIssuerSigningKey = true,
                         ValidateLifetime = true,
-                        ValidIssuer = configuration.GetSection("JwtSettings")["Authority"],
-                        ValidAudience = configuration.GetSection("JwtSettings")["Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JwtSettings")["Secret"])),
+                        ValidIssuer = configuration.GetSection(nameof(JwtSettings))[nameof(JwtSettings.Authority)],
+                        ValidAudience = configuration.GetSection(nameof(JwtSettings))[nameof(JwtSettings.Audience)],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection(nameof(JwtSettings))[nameof(JwtSettings.Secret)])),
                         ClockSkew = TimeSpan.Zero
                     };
                 });
         }
 
-        private static void RegisterServices(this IServiceCollection services)
+        private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
         }
 
-        private static void RegisterSwagger(this IServiceCollection services)
+        private static void RegisterSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Presence API" });
+                c.SwaggerDoc("v1", new Info { Title = nameof(Api) });
             });
         }
 
-        private static void RegisterMvcServices(this IServiceCollection services)
+        private static void RegisterMvcServices(IServiceCollection services)
         {
             services
                 .AddMvc()
