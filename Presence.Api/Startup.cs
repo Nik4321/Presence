@@ -1,23 +1,18 @@
-using System;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Presence.Data;
-using Presence.Data.Models;
 using Presence.Services;
 using Presence.Infrastructure.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Presence.Api.Extensions.Startup;
 
 namespace Presence.Api
 {
-    public class Startup
+    public partial class Startup
     {
         private readonly IConfiguration configuration;
 
@@ -44,45 +39,7 @@ namespace Presence.Api
                 options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
             });
 
-            services.AddIdentity<User, UserRole>()
-                .AddEntityFrameworkStores<PresenceDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_`{|}~.@";
-
-                // Password settings
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
-            });
-
-            services
-                .AddAuthentication(options => 
-                {
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true,
-                        ValidIssuer = this.configuration.GetSection("JwtSettings")["Authority"],
-                        ValidAudience = this.configuration.GetSection("JwtSettings")["Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration.GetSection("JwtSettings")["Secret"])),
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
+            services.ConfigureIdentityUser(this.configuration);
 
             services.Configure<JwtSettings>(this.configuration.GetSection("JwtSettings"));
 
