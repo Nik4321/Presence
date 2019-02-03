@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using Presence.Api.Extensions;
 using Presence.Data;
-using Presence.Services;
 using Presence.Infrastructure.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using Presence.Api.Extensions.Startup;
 
 namespace Presence.Api
 {
@@ -43,7 +42,7 @@ namespace Presence.Api
 
             services.Configure<JwtSettings>(this.configuration.GetSection("JwtSettings"));
 
-            services.AddScoped<IUserService, UserService>();
+            services.RegisterServices();
 
             services.AddSwaggerGen(c =>
             {

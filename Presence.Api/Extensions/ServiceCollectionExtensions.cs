@@ -5,13 +5,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Presence.Data;
 using Presence.Data.Models;
+using Presence.Services;
 using System;
 using System.Text;
 
-namespace Presence.Api.Extensions.Startup
+namespace Presence.Api.Extensions
 {
-    public static class IdentityUserStartupExtension
+    public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Registers the services in the DI container
+        /// </summary>
+        /// <param name="services"></param>
+        public static void RegisterServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
+        }
+
         /// <summary>
         /// Configures identity user services
         /// </summary>
