@@ -33,9 +33,7 @@ namespace Presence.Api
 
             services.RegisterDbContext(this.configuration);
             services.RegisterIdentityUser(this.configuration);
-
-            services.Configure<JwtSettings>(this.configuration.GetSection("JwtSettings"));
-
+            services.RegisterOptions(this.configuration);
             services.RegisterServices();
 
             services.AddSwaggerGen(c =>

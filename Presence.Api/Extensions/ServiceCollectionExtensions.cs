@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Presence.Data;
 using Presence.Data.Models;
+using Presence.Infrastructure.Options;
 using Presence.Services;
 using System;
 using System.Text;
@@ -20,6 +21,11 @@ namespace Presence.Api.Extensions
             {
                 options.UseSqlServer(configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
             });
+        }
+
+        public static void RegisterOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JwtSettings>(configuration.GetSection(nameof(JwtSettings)));
         }
 
         public static void RegisterServices(this IServiceCollection services)
