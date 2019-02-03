@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -13,21 +14,20 @@ namespace Presence.Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// Registers the services in the DI container
-        /// </summary>
-        /// <param name="services"></param>
+        public static void RegisterDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<PresenceDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+            });
+        }
+
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
         }
 
-        /// <summary>
-        /// Configures identity user services
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        public static void ConfigureIdentityUser(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterIdentityUser(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, UserRole>()
                 .AddEntityFrameworkStores<PresenceDbContext>()

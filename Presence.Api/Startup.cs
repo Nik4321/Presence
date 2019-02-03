@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using Presence.Api.Extensions;
-using Presence.Data;
 using Presence.Infrastructure.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -33,12 +31,8 @@ namespace Presence.Api
                     .AllowCredentials());
             });
 
-            services.AddDbContext<PresenceDbContext>(options =>
-            {
-                options.UseSqlServer(this.configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
-            });
-
-            services.ConfigureIdentityUser(this.configuration);
+            services.RegisterDbContext(this.configuration);
+            services.RegisterIdentityUser(this.configuration);
 
             services.Configure<JwtSettings>(this.configuration.GetSection("JwtSettings"));
 
