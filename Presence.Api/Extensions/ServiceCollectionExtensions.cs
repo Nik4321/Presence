@@ -45,7 +45,7 @@ namespace Presence.Api.Extensions
         {
             services.AddDbContext<PresenceDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
         }
 

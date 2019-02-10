@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.1" />
     <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="nunit" Version="3.10.1" />
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Presence.Api\Presence.Api.csproj" />
     <ProjectReference Include="..\Presence.Services\Presence.Services.csproj" />
   </ItemGroup>
 
